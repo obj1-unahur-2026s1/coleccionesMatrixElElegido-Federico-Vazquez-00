@@ -58,8 +58,12 @@ object nave{
         return pasajeros.max({p => p.vitalidad()})
     }
 
+    method menorVitalidad(){
+        return pasajeros.min({p => p.vitalidad()})
+    }
+
     method estaEquilibrada(){
-        //
+        return self.mayorVitalidad() * 2 < self.menorVitalidad()
     }
 
     method estaElElegido(){
@@ -94,24 +98,32 @@ object nave{
 
     method promedioVitalidad(){
         return pasajeros.sum({p => p.vitalidad()}) / self.cantidadPasajeros()
+        // pasajeros.average({p => p.vitalidad()})
+    }
+
+    method pasajerosConVitalidadPar(){
+        return pasajeros.count({p => p.vitalidad().even()})
     }
 
     method simulacroDeCombate(){
-        pasajeros.forEach({p => p.saltar()})
-        pasajeros.forEach({p => p.saltar()})
-        pasajeros.forEach({p => p.saltar()})
+        pasajeros.forEach({
+            p => 
+            p.saltar()
+            p.saltar()
+            p.saltar()
+        })
     }
 
     method listaVitalidad(){
-        pasajeros.map({p => p.vitalidad()})
+        return pasajeros.map({p => p.vitalidad()})
     }
 
     method pasajerosMenorAMayor(){
-        pasajeros.sortBy({a, b => a.vitalidad() < b.vitalidad()})
+        return pasajeros.sortBy({a, b => a.vitalidad() < b.vitalidad()})
     }
 
     method pasajeroParaLimpiarElBaño(){
-        pasajeros.randomized().first()
+        return pasajeros.anyOne()
     }
 
     method cantidadDeElegidos(){
