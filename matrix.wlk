@@ -32,7 +32,7 @@ object morfeo{
 }
 
 object trinity{
-    method vitalidad() = 0
+    method vitalidad() = 2
     method esElElegido() = false
 
     method saltar(){
@@ -42,35 +42,85 @@ object trinity{
 object nave{
     const pasajeros = [neo, morfeo, trinity]
 
-    method subirPasajero(pasajero) {
+    method subirPasajero(pasajero){
         pasajeros.add(pasajero)
     }
 
-    method bajarPasajero(pasajero) {
+    method bajarPasajero(pasajero){
         pasajeros.add(pasajero)
     }
 
-    method cantidadPasajeros() = pasajeros.size()
+    method cantidadPasajeros(){
+        return pasajeros.size()
+    }
 
-    method mayorVitalidad() = pasajeros.max({p => p.vitalidad()})
+    method mayorVitalidad(){
+        return pasajeros.max({p => p.vitalidad()})
+    }
 
-    method estaEquilibrada() {
+    method estaEquilibrada(){
         //
     }
 
-    method estaElElegido() = pasajeros.any({p => p.esElElegido()})
+    method estaElElegido(){
+        return pasajeros.any({p => p.esElElegido()})
+    }
 
-    method chocar() {
+    method chocar(){
         pasajeros.forEach({p => p.saltar()
                                 self.bajarPasajero(p)
                             })
     }
 
-    method acelerar() {
+    method acelerar(){
         self.pasajerosSinElElegido().forEach({p => p.saltar()})
     }
 
-    method pasajerosSinElElegido() {
+    method pasajerosSinElElegido(){
         return pasajeros.filter({p => not p.esElElegido()})
-    } 
+    }
+
+    method pasajerosValiosos(){
+        return pasajeros.filter({p => p.vitalidad() > 5})
+    }
+
+    method pasajeroAlHorno(){
+        return pasajeros.any({p => p.vitalidad() == 0})
+    }
+
+    method pasajerosEnCondiciones(){
+        return pasajeros.all({p => p.vitalidad() > 2})
+    }
+
+    method promedioVitalidad(){
+        return pasajeros.sum({p => p.vitalidad()}) / self.cantidadPasajeros()
+    }
+
+    method simulacroDeCombate(){
+        pasajeros.forEach({p => p.saltar()})
+        pasajeros.forEach({p => p.saltar()})
+        pasajeros.forEach({p => p.saltar()})
+    }
+
+    method listaVitalidad(){
+        pasajeros.map({p => p.vitalidad()})
+    }
+
+    method pasajerosMenorAMayor(){
+        pasajeros.sortBy({a, b => a.vitalidad() < b.vitalidad()})
+    }
+
+    method pasajeroParaLimpiarElBaño(){
+        pasajeros.randomized().first()
+    }
+
+    method cantidadDeElegidos(){
+        return pasajeros.count({p => p.esElElegido()})
+    }
+
+    method potenciaVital(){
+        var potencia = 1
+        pasajeros.forEach({p => potencia *= p.vitalidad()})
+        return potencia
+    }
 }
